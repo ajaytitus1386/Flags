@@ -75,7 +75,7 @@ class FlagsDatabase {
   /// Returns `List<CountryModel>` from database by its region
   Future<List<CountryModel>> readCountriesByRegion(String region) async {
     final database = await db.database;
-    const orderBy = 'name DESC';
+    const orderBy = 'name ASC';
 
     final result = await database.query(
       'Country',
@@ -90,7 +90,7 @@ class FlagsDatabase {
   /// Returns a `List<CountryModel>` of all countries in database
   Future<List<CountryModel>> readAllCountries() async {
     final database = await db.database;
-    const orderBy = 'name DESC';
+    const orderBy = 'name ASC';
 
     final result = await database.query(
       'Country',
