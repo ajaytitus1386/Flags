@@ -43,7 +43,7 @@ class CountryModel {
       cca3: json["cca3"] as String,
       capital: json["capital"] as String,
       region: json["region"] as String,
-      flagUrl: json["flagUrl"] as String,
+      flagUrl: json["flag_url"] as String,
     );
   }
 

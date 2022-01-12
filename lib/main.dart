@@ -1,3 +1,4 @@
+import 'package:flags_task/features/flags/presentation/styling/color_palettes.dart';
 import 'package:flags_task/features/flags/presentation/widgets/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
@@ -14,9 +15,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.cyan,
-        ),
+        theme:
+            ThemeData(primaryColor: primary, secondaryHeaderColor: secondary),
         home: const SplashScreenWidget());
   }
 }
