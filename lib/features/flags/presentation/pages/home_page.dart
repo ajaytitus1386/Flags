@@ -1,3 +1,4 @@
+import 'package:flags_task/features/flags/presentation/animation/scale_page_route.dart';
 import 'package:flags_task/features/flags/presentation/pages/region_page.dart';
 import 'package:flags_task/features/flags/presentation/styling/color_palettes.dart';
 import 'package:flags_task/features/flags/presentation/styling/responsive_size.dart';
@@ -94,10 +95,7 @@ class RegionCard extends StatelessWidget {
     SizeConfig().init(context);
     return InkWell(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => RegionPage(region: region)));
+        Navigator.push(context, scalePageBuilder(RegionPage(region: region)));
       },
       child: Container(
         decoration: cardDecoration,
