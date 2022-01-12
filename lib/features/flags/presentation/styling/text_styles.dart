@@ -19,3 +19,17 @@ TextStyle buildHeadingCardTextStyle() {
     fontWeight: FontWeight.bold,
   ));
 }
+
+TextStyle buildTileHeadingTextStyle() {
+  return GoogleFonts.montserrat(
+      textStyle: TextStyle(
+          color: secondary, fontSize: 18, fontWeight: FontWeight.w600));
+}
+
+TextStyle buildTileNormalTextStyle() {
+  return GoogleFonts.notoSans(
+      textStyle: const TextStyle(
+    color: Colors.black,
+    fontSize: 14,
+  ));
+}
