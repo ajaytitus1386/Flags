@@ -2,8 +2,9 @@ import 'package:flags_task/features/flags/presentation/pages/region_page.dart';
 import 'package:flags_task/features/flags/presentation/styling/color_palettes.dart';
 import 'package:flags_task/features/flags/presentation/styling/responsive_size.dart';
 import 'package:flags_task/features/flags/presentation/styling/text_styles.dart';
-import 'package:flags_task/features/flags/presentation/widgets/nav_drawer_widget.dart';
+import 'package:flags_task/features/flags/presentation/widgets/scaffold_wrapper.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,45 +14,68 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  DateTime firstBackPress = DateTime.now();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: const NavDrawerWidget(),
-      appBar: AppBar(
-        backgroundColor: primary,
-      ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: const [
-              SizedBox(
-                height: 24,
-              ),
-              HeadingCard(
-                heading: 'Please pick a region!',
-              ),
-              SizedBox(
-                height: 24,
-              ),
-              RegionCard(region: "Asia"),
-              SizedBox(
-                height: 24,
-              ),
-              RegionCard(region: "Africa"),
-              SizedBox(
-                height: 24,
-              ),
-              RegionCard(region: "Europe"),
-              SizedBox(
-                height: 24,
-              ),
-              RegionCard(region: "Americas"),
-              SizedBox(
-                height: 24,
-              ),
-              RegionCard(region: "Oceania"),
-            ],
-          ),
+    return WillPopScope(
+        onWillPop: () async {
+          final timeDiff = DateTime.now().difference(firstBackPress);
+          final isReadyToExit = timeDiff >= const Duration(seconds: 3);
+          firstBackPress = DateTime.now();
+
+          if (isReadyToExit) {
+            Fluttertoast.showToast(msg: 'Tap back again to exit');
+            return false;
+          } else {
+            Fluttertoast.cancel();
+            return true;
+          }
+        },
+        child: const ScaffoldWrapper(
+          child: HomeBody(),
+          appBarTitle: "",
+        ));
+  }
+}
+
+class HomeBody extends StatelessWidget {
+  const HomeBody({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Center(
+        child: Column(
+          children: const [
+            SizedBox(
+              height: 24,
+            ),
+            HeadingCard(
+              heading: 'Pick a region!',
+            ),
+            SizedBox(
+              height: 24,
+            ),
+            RegionCard(region: "Africa"),
+            SizedBox(
+              height: 24,
+            ),
+            RegionCard(region: "Americas"),
+            SizedBox(
+              height: 24,
+            ),
+            RegionCard(region: "Asia"),
+            SizedBox(
+              height: 24,
+            ),
+            RegionCard(region: "Europe"),
+            SizedBox(
+              height: 24,
+            ),
+            RegionCard(region: "Oceania"),
+          ],
         ),
       ),
     );
