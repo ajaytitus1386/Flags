@@ -18,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   DateTime firstBackPress = DateTime.now();
   @override
   Widget build(BuildContext context) {
+    // Controls the pop on exit when tapping back twice in quick succession
     return WillPopScope(
         onWillPop: () async {
           final timeDiff = DateTime.now().difference(firstBackPress);
@@ -95,6 +96,7 @@ class RegionCard extends StatelessWidget {
     SizeConfig().init(context);
     return InkWell(
       onTap: () {
+        // Generates the transition animation
         Navigator.push(context, scalePageBuilder(RegionPage(region: region)));
       },
       child: Container(
