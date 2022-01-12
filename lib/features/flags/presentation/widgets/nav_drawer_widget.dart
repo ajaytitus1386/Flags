@@ -1,6 +1,7 @@
 import 'package:flags_task/features/flags/presentation/pages/home_page.dart';
 import 'package:flags_task/features/flags/presentation/styling/color_palettes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class NavDrawerWidget extends StatelessWidget {
   const NavDrawerWidget({Key? key}) : super(key: key);
@@ -29,7 +30,11 @@ class NavDrawerWidget extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => const HomePage()));
                 }),
-            buildMenuTile(text: 'Exit', icon: Icons.exit_to_app)
+            buildMenuTile(
+              text: 'Exit',
+              icon: Icons.exit_to_app,
+              onTapCall: () => SystemNavigator.pop(),
+            )
           ],
         ),
       ),
