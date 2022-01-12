@@ -1,7 +1,6 @@
 import 'package:flags_task/features/flags/data/db/flags_database.dart';
-import 'package:flags_task/features/flags/data/providers/api_provider.dart';
+import 'package:flags_task/features/flags/data/providers/countries_api_provider.dart';
 import 'package:flags_task/features/flags/presentation/pages/home_page.dart';
-import 'package:flags_task/features/flags/presentation/styling/color_palettes.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 
