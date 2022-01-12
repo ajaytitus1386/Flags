@@ -4,7 +4,7 @@ import 'package:flags_task/features/flags/domain/entities/country.dart';
 List<CountryModel> countriesFromJson(String str) {
   return List<CountryModel>.from(json
       .decode(str)
-      .map((countryJson) => CountryModel.fromJson(countryJson)));
+      .map((countryJson) => CountryModel.fromApiJson(countryJson)));
 }
 
 String countriesToJson(List<CountryModel> countries) {
@@ -12,41 +12,48 @@ String countriesToJson(List<CountryModel> countries) {
       .encode(List<dynamic>.from(countries.map((country) => country.toJson())));
 }
 
-class CountryModel extends Country {
-  CountryModel(
-      {required String name,
-      required String cca3,
-      required List<String> borders,
-      required Map<String, String> languages,
-      required String region,
-      required String flagUrl})
-      : super(
-          name: name,
-          cca3: cca3,
-          borders: borders,
-          languages: languages,
-          region: region,
-          flagUrl: flagUrl,
-        );
+class CountryModel {
+  final String name;
+  final String cca3;
+  final String capital;
+  final String region;
+  final String flagUrl;
+
+  CountryModel({
+    required this.name,
+    required this.cca3,
+    required this.capital,
+    required this.region,
+    required this.flagUrl,
+  }) : super();
+
+  factory CountryModel.fromApiJson(Map<String, dynamic> json) {
+    return CountryModel(
+      name: json["name"]["common"] as String,
+      cca3: json["cca3"] as String,
+      capital: json["capital"].toString(),
+      region: json["region"] as String,
+      flagUrl: json["flags"]["png"] as String,
+    );
+  }
 
   factory CountryModel.fromJson(Map<String, dynamic> json) {
     return CountryModel(
-        name: json["name"]["common"],
-        cca3: json["cca3"],
-        borders: json["borders"],
-        languages: json["languages"],
-        region: json["region"],
-        flagUrl: json["flags"]["png"]);
+      name: json["name"] as String,
+      cca3: json["cca3"] as String,
+      capital: json["capital"] as String,
+      region: json["region"] as String,
+      flagUrl: json["flagUrl"] as String,
+    );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'name': {'common': name},
+      'name': name,
       'cca3': cca3,
-      'borders': borders,
-      'languages': languages,
+      'capital': capital,
       'region': region,
-      'flags': {'png': flagUrl}
+      'flagUrl': flagUrl,
     };
   }
 }
