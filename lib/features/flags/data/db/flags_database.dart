@@ -9,6 +9,7 @@ class FlagsDatabase {
   static Database? _database;
   FlagsDatabase._init();
 
+  /// Initializes database if not already `null`
   Future<Database> get database async {
     if (_database != null) return _database!;
 
@@ -23,6 +24,7 @@ class FlagsDatabase {
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
+  /// Creates Country Table on initialization of database
   FutureOr<void> _createDB(Database db, int version) async {
     await db.execute('''
     CREATE TABLE Country(
@@ -38,33 +40,25 @@ class FlagsDatabase {
 
   final columns = 'name, cca3, capital, region, flag_url';
 
-  insertCountry(CountryModel country) async {
+  /// Inserts a new `CountryModel` into database
+  ///
+  /// Returns `id` of new record
+  Future<int> insertCountry(CountryModel country) async {
     final database = await db.database;
     // Insert the country's details
-
-    // final json = country.toJson();
-    // final values =
-    //     '${json["name"]}, ${json["cca3"]}, ${json["capital"]}, ${json["region"]}, ${json["flag_url"]}';
-
     final values =
         '"${country.name}", "${country.cca3}", "${country.capital}", "${country.region}", "${country.flagUrl}"';
 
     try {
       final id = await database
           .rawInsert('INSERT INTO Country ($columns) VALUES ($values)');
+      return id;
     } on Exception {
       throw Exception('Not Unique');
     }
-
-    // final id = await database.insert('Country', country.toJson());
-
-    // For each of the country's borders, insert the cca3 pairs into Borders Association table
-    // country.borders.map((borderCountryCode) async {
-    //   final border = {'cca3': country.cca3, 'border_cca3': borderCountryCode};
-    //   await database.insert('Border', border);
-    // });
   }
 
+  /// Returns a `CountryModel` from database by its cca3 code
   Future<CountryModel> readCountry(String cca3) async {
     final database = await db.database;
 
@@ -78,6 +72,7 @@ class FlagsDatabase {
     }
   }
 
+  /// Returns `List<CountryModel>` from database by its region
   Future<List<CountryModel>> readCountriesByRegion(String region) async {
     final database = await db.database;
     const orderBy = 'name DESC';
@@ -92,6 +87,7 @@ class FlagsDatabase {
     return result.map((json) => CountryModel.fromJson(json)).toList();
   }
 
+  /// Returns a `List<CountryModel>` of all countries in database
   Future<List<CountryModel>> readAllCountries() async {
     final database = await db.database;
     const orderBy = 'name DESC';
@@ -104,6 +100,7 @@ class FlagsDatabase {
     return result.map((json) => CountryModel.fromJson(json)).toList();
   }
 
+  /// Returns `count` of rows in Country table
   Future<int?> readRowCount() async {
     final database = await db.database;
     final result = await database.rawQuery('SELECT COUNT(*) FROM Country');
@@ -111,12 +108,16 @@ class FlagsDatabase {
     return count;
   }
 
+  /// Deletes all records in Country Table
+  ///
+  /// Returns `count` of deleted rows
   Future<int?> deleteAllCountries() async {
     final database = await db.database;
-    final result = await database.rawDelete('DELETE FROM Country');
-    return result;
+    final count = await database.rawDelete('DELETE FROM Country');
+    return count;
   }
 
+  /// Closes Database connection
   Future close() async {
     final database = await db.database;
     database.close();
