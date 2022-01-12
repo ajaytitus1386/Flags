@@ -1,9 +1,7 @@
 import 'package:flags_task/features/flags/data/db/flags_database.dart';
 import 'package:flags_task/features/flags/data/models/country_model.dart';
-import 'package:flags_task/features/flags/presentation/styling/color_palettes.dart';
-import 'package:flags_task/features/flags/presentation/styling/text_styles.dart';
 import 'package:flags_task/features/flags/presentation/widgets/country_list_builder.dart';
-import 'package:flags_task/features/flags/presentation/widgets/nav_drawer_widget.dart';
+import 'package:flags_task/features/flags/presentation/widgets/scaffold_wrapper.dart';
 import 'package:flutter/material.dart';
 
 class RegionPage extends StatefulWidget {
@@ -28,17 +26,8 @@ class _RegionPageState extends State<RegionPage> {
   @override
   Widget build(BuildContext context) {
     _getCountriesByRegion();
-    return Scaffold(
-      drawer: const NavDrawerWidget(),
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          widget.region,
-          style: buildHeadingCardTextStyle(),
-        ),
-        backgroundColor: primary,
-      ),
-      body: CountryListBuilder(countries: countries),
-    );
+    return ScaffoldWrapper(
+        child: CountryListBuilder(countries: countries),
+        appBarTitle: widget.region);
   }
 }
