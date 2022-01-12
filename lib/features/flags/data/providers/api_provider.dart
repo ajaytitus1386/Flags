@@ -3,6 +3,9 @@ import 'package:flags_task/features/flags/data/models/country_model.dart';
 import 'package:http/http.dart' as http;
 
 class CountriesApiProvider {
+  /// Fetches JSON Response from API endpoint and inserts it into database
+  ///
+  /// Returns `List<CountryModel>` from parsed JSON
   Future<List<CountryModel>> getAllCountries() async {
     const url = "https://restcountries.com/v3.1/all";
 
