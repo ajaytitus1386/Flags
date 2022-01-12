@@ -20,7 +20,6 @@ class _RegionPageState extends State<RegionPage> {
     setState(() {
       countries = result;
     });
-    debugPrint(countries.length.toString());
   }
 
   @override
