@@ -1,12 +1,13 @@
 import 'dart:convert';
-import 'package:flags_task/features/flags/domain/entities/country.dart';
 
+/// Converts the response json string into List of ```CountryModel``` objects
 List<CountryModel> countriesFromJson(String str) {
   return List<CountryModel>.from(json
       .decode(str)
       .map((countryJson) => CountryModel.fromApiJson(countryJson)));
 }
 
+/// Converts List of ```CountryModel``` into json string
 String countriesToJson(List<CountryModel> countries) {
   return json
       .encode(List<dynamic>.from(countries.map((country) => country.toJson())));
@@ -27,6 +28,7 @@ class CountryModel {
     required this.flagUrl,
   }) : super();
 
+  /// Specifically converts json from given API endpoint to ```CountryModel```
   factory CountryModel.fromApiJson(Map<String, dynamic> json) {
     return CountryModel(
       name: json["name"]["common"] as String,
@@ -37,6 +39,7 @@ class CountryModel {
     );
   }
 
+  /// Converts json as stored in Database back to ```CountryModel```
   factory CountryModel.fromJson(Map<String, dynamic> json) {
     return CountryModel(
       name: json["name"] as String,
@@ -47,6 +50,7 @@ class CountryModel {
     );
   }
 
+  /// Returns a json object from ```CountryModel```
   Map<String, dynamic> toJson() {
     return {
       'name': name,
