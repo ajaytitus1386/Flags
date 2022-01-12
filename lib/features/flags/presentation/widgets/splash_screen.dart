@@ -16,7 +16,7 @@ class SplashScreenWidget extends StatelessWidget {
             fontWeight: FontWeight.bold, color: Colors.white, fontSize: 64),
       ),
       backgroundColor: Colors.cyan.shade300,
-      image: Image.asset('assets/images/flag.jpg'),
+      image: Image.asset('assets/images/flag.png'),
       photoSize: 80,
       loadingText: const Text('Getting Everything Ready!',
           style: TextStyle(color: Colors.white, fontSize: 24)),
