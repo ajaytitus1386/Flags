@@ -1,3 +1,4 @@
+import 'package:flags_task/features/flags/presentation/pages/db_controls.dart';
 import 'package:flags_task/features/flags/presentation/pages/home_page.dart';
 import 'package:flags_task/features/flags/presentation/styling/color_palettes.dart';
 import 'package:flutter/material.dart';
@@ -34,13 +35,14 @@ class NavDrawerWidget extends StatelessWidget {
               text: 'Exit',
               icon: Icons.exit_to_app,
               onTapCall: () => SystemNavigator.pop(),
-            )
+            ),
           ],
         ),
       ),
     );
   }
 
+  // Returns a Tile in the Side Drawer
   Widget buildMenuTile({
     required String text,
     required IconData icon,

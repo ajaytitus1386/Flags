@@ -3,6 +3,7 @@ import 'package:flags_task/features/flags/presentation/styling/text_styles.dart'
 import 'package:flags_task/features/flags/presentation/widgets/nav_drawer_widget.dart';
 import 'package:flutter/material.dart';
 
+// Acts as a common wrapper with scaffold, drawer and appbar for other pages
 class ScaffoldWrapper extends StatefulWidget {
   final Widget child;
   final String appBarTitle;

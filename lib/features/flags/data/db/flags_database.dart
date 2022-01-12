@@ -58,6 +58,12 @@ class FlagsDatabase {
     }
   }
 
+  Future<void> insertCountries(List<CountryModel> result) async {
+    for (var country in result) {
+      await FlagsDatabase.db.insertCountry(country);
+    }
+  }
+
   /// Returns a `CountryModel` from database by its cca3 code
   Future<CountryModel> readCountry(String cca3) async {
     final database = await db.database;
