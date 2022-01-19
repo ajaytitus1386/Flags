@@ -18,7 +18,6 @@ dependencies:
   path_provider: ^2.0.8
   # SQLite DB
   sqflite: ^2.0.1
-  splashscreen: ^1.3.5
   # Fonts library
   google_fonts: ^2.2.0
 
