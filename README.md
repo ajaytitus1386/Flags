@@ -34,11 +34,6 @@ A Flags Task made for Nearcast
     ```shell
     flutter run
     ```
-    **Note:** Splash Screen may cause a null safety error on build, in which case use
-    ```shell
-    flutter run --no-sound-null-safety
-    ```
-    Or add `--no-sound-null-safety` as args in `launch.json`
 
 ## Architecture
 
