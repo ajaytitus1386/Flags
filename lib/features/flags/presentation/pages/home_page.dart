@@ -12,7 +12,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  DateTime firstBackPress = DateTime.now();
   @override
   Widget build(BuildContext context) {
     // Controls the pop on exit when tapping back twice in quick succession
