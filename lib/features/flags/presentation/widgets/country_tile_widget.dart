@@ -3,8 +3,11 @@ import 'package:flags_task/features/flags/presentation/styling/text_styles.dart'
 import 'package:flutter/material.dart';
 
 class CountryTile extends StatefulWidget {
+  final bool alternateTile;
   final CountryModel country;
-  const CountryTile({Key? key, required this.country}) : super(key: key);
+  const CountryTile(
+      {Key? key, required this.country, required this.alternateTile})
+      : super(key: key);
 
   @override
   _CountryTileState createState() => _CountryTileState();
@@ -25,7 +28,7 @@ class _CountryTileState extends State<CountryTile> {
     }
 
     return Container(
-      decoration: tileDecoration,
+      decoration: _makeTileDecoration(widget.alternateTile),
       child: ListTile(
         // Flag
         leading: SizedBox(
@@ -55,6 +58,12 @@ class _CountryTileState extends State<CountryTile> {
   }
 }
 
-BoxDecoration tileDecoration = const BoxDecoration(
-    border: Border(
-        bottom: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.25), width: 0.75)));
+BoxDecoration _makeTileDecoration(bool isAlternate) {
+  BoxDecoration tileDecoration = BoxDecoration(
+    color: isAlternate ? Colors.grey.shade200 : Colors.grey.shade100,
+    border: const Border(
+      bottom: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.25), width: 0.75),
+    ),
+  );
+  return tileDecoration;
+}
