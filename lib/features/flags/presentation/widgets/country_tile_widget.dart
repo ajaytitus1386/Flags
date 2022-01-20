@@ -1,11 +1,11 @@
-import 'package:flags_task/features/flags/domain/entities/country.dart';
+import 'package:flags_task/features/flags/data/models/country_model.dart';
 import 'package:flags_task/features/flags/presentation/pages/country_page.dart';
 import 'package:flags_task/features/flags/presentation/styling/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class CountryTile extends StatefulWidget {
   final bool alternateTile;
-  final Country country;
+  final CountryModel country;
   const CountryTile(
       {Key? key, required this.country, required this.alternateTile})
       : super(key: key);

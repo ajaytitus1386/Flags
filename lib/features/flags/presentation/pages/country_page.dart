@@ -1,6 +1,5 @@
 import 'package:flags_task/features/flags/data/db/flags_database.dart';
 import 'package:flags_task/features/flags/data/models/country_model.dart';
-import 'package:flags_task/features/flags/domain/entities/country.dart';
 import 'package:flags_task/features/flags/presentation/widgets/country_list_builder.dart';
 import 'package:flags_task/features/flags/presentation/widgets/heading_card.dart';
 import 'package:flags_task/features/flags/presentation/widgets/languages_list_builder.dart';
@@ -8,7 +7,7 @@ import 'package:flags_task/features/flags/presentation/widgets/scaffold_wrapper.
 import 'package:flutter/material.dart';
 
 class CountryPage extends StatefulWidget {
-  final Country country;
+  final CountryModel country;
   const CountryPage({Key? key, required this.country}) : super(key: key);
 
   @override
