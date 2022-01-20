@@ -19,7 +19,18 @@ class _CountryListBuilderState extends State<CountryListBuilder> {
         scrollDirection: Axis.vertical,
         itemCount: widget.countries.length,
         itemBuilder: (context, index) {
-          return CountryTile(country: widget.countries[index]);
+          return CountryTile(
+            country: widget.countries[index],
+            alternateTile: _isAlternateTile(index),
+          );
         });
+  }
+}
+
+bool _isAlternateTile(int index) {
+  if (index % 2 == 0) {
+    return true;
+  } else {
+    return false;
   }
 }

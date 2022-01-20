@@ -5,7 +5,7 @@
       "name": "flags_task",
       "request": "launch",
       "type": "dart",
-      "args": ["--no-sound-null-safety"]
+      "args": [""]
     },
     {
       "name": "flags_task (profile mode)",
