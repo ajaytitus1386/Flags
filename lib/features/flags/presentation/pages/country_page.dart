@@ -4,6 +4,7 @@ import 'package:flags_task/features/flags/presentation/widgets/country_list_buil
 import 'package:flags_task/features/flags/presentation/widgets/heading_card.dart';
 import 'package:flags_task/features/flags/presentation/widgets/languages_list_builder.dart';
 import 'package:flags_task/features/flags/presentation/widgets/scaffold_wrapper.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class CountryPage extends StatefulWidget {
@@ -29,7 +30,9 @@ class _CountryPageState extends State<CountryPage> {
           countries.add(result);
         });
       } catch (e) {
-        print(e);
+        if (kDebugMode) {
+          print(e);
+        }
       }
     }
   }
