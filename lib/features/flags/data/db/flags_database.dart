@@ -21,7 +21,11 @@ class FlagsDatabase {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, 'flags_db');
 
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    return await openDatabase(
+      path,
+      version: 3,
+      onCreate: _createDB,
+    );
   }
 
   /// Creates Country Table on initialization of database
@@ -31,6 +35,8 @@ class FlagsDatabase {
         name TEXT,
         cca3 TEXT,
         capital TEXT,
+        borders TEXT,
+        languages TEXT,
         region TEXT,
         flag_url TEXT ,
         UNIQUE(cca3)
@@ -38,7 +44,7 @@ class FlagsDatabase {
         ''');
   }
 
-  final columns = 'name, cca3, capital, region, flag_url';
+  final columns = 'name, cca3, capital, borders, languages, region, flag_url';
 
   /// Inserts a new `CountryModel` into database
   ///
@@ -47,14 +53,14 @@ class FlagsDatabase {
     final database = await db.database;
     // Insert the country's details
     final values =
-        '"${country.name}", "${country.cca3}", "${country.capital}", "${country.region}", "${country.flagUrl}"';
+        '"${country.name}", "${country.cca3}", "${country.capital}", "${country.borders.toString()}", "${country.languages.toString()}", "${country.region}", "${country.flagUrl}"';
 
     try {
       final id = await database
           .rawInsert('INSERT INTO Country ($columns) VALUES ($values)');
       return id;
     } on Exception {
-      throw Exception('Not Unique');
+      throw Exception('Insert Failed');
     }
   }
 
@@ -68,8 +74,8 @@ class FlagsDatabase {
   Future<CountryModel> readCountry(String cca3) async {
     final database = await db.database;
 
-    final maps = await database
-        .rawQuery('SELECT $columns FROM Country WHERE cca3 = $cca3');
+    final maps =
+        await database.query("Country", where: "cca3 = ?", whereArgs: [cca3]);
 
     if (maps.isNotEmpty) {
       return CountryModel.fromJson(maps.first);
