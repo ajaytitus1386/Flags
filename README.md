@@ -63,3 +63,5 @@ The current build flows between two main pages: The Home Page and the Region Pag
 **The Home Page**: The landing page of the app. Displays the regions of the world as cards.
 
 **The Region Page**: Using the stored data, displays a list of countries based on a region as vertical tiles.
+
+**The Country Page**: Tapping on a country tile, displays its bordering countries and the language spoken in the country

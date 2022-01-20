@@ -33,3 +33,10 @@ TextStyle buildTileNormalTextStyle() {
     fontSize: 14,
   ));
 }
+
+TextStyle buildLanguageTextStyle() {
+  return GoogleFonts.notoSans(
+    textStyle:
+        TextStyle(color: highlight, fontSize: 20, fontWeight: FontWeight.w600),
+  );
+}
