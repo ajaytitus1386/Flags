@@ -1,8 +1,12 @@
-import 'package:flags_task/features/flags/data/db/flags_database.dart';
 import 'package:flags_task/features/flags/data/models/country_model.dart';
+import 'package:flags_task/features/flags/presentation/bloc/country_bloc.dart';
+import 'package:flags_task/features/flags/presentation/global/event_dispatchers.dart';
+import 'package:flags_task/features/flags/presentation/styling/color_palettes.dart';
 import 'package:flags_task/features/flags/presentation/widgets/country_list_builder.dart';
+import 'package:flags_task/features/flags/presentation/widgets/heading_card.dart';
 import 'package:flags_task/features/flags/presentation/widgets/scaffold_wrapper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegionPage extends StatefulWidget {
   final String region;
@@ -15,18 +19,30 @@ class RegionPage extends StatefulWidget {
 class _RegionPageState extends State<RegionPage> {
   List<CountryModel> countries = [];
 
-  _getCountriesByRegion() async {
-    final result = await FlagsDatabase.db.readCountriesByRegion(widget.region);
-    setState(() {
-      countries = result;
-    });
+  @override
+  void initState() {
+    super.initState();
+    dispatchGetCountries(context, widget.region);
   }
 
   @override
   Widget build(BuildContext context) {
-    _getCountriesByRegion();
     return ScaffoldWrapper(
-        child: CountryListBuilder(countries: countries),
+        child: BlocBuilder<CountryBloc, CountryState>(
+          builder: (context, state) {
+            if (state is CountryInitial) {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: primary,
+                ),
+              );
+            } else if (state is CountryLoaded) {
+              return CountryListBuilder(countries: state.countries);
+            }
+            return const HeadingCard(
+                heading: 'Oops something went wrong! Please Try again later');
+          },
+        ),
         appBarTitle: widget.region);
   }
 }

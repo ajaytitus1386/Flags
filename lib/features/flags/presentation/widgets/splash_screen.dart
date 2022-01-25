@@ -1,20 +1,21 @@
 import 'dart:async';
-import 'package:flags_task/features/flags/data/services/countries_services.dart';
+import 'package:flags_task/features/flags/presentation/global/event_dispatchers.dart';
 import 'package:flags_task/features/flags/presentation/pages/home_page.dart';
 import 'package:flags_task/features/flags/presentation/styling/color_palettes.dart';
 import 'package:flutter/material.dart';
 
-class SplashScreenWidget extends StatefulWidget {
-  const SplashScreenWidget({Key? key}) : super(key: key);
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  State<SplashScreenWidget> createState() => _SplashScreenWidgetState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenWidgetState extends State<SplashScreenWidget> {
+class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    dispatchPopulate(context);
     Timer(const Duration(seconds: 5), () {
       Navigator.pushReplacement(
           context,
@@ -22,8 +23,6 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
             builder: (context) => const HomePage(),
           ));
     });
-    // Populates Database
-    _populateDB();
   }
 
   @override
@@ -77,13 +76,5 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
         ],
       ),
     );
-  }
-
-  _populateDB() async {
-    final countriesServices = CountriesServices();
-    if (await countriesServices.checkIfDataNotPersists()) {
-      final countries = await countriesServices.fetchCountriesFromApi();
-      await countriesServices.insertIntoDB(countries);
-    }
   }
 }
