@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:flags_task/core/error/failures.dart';
+import 'package:flags_task/core/error/exceptions.dart';
 import 'package:flags_task/features/flags/data/models/country_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -61,8 +61,7 @@ class FlagsDatabase {
           .rawInsert('INSERT INTO Country ($columns) VALUES ($values)');
       return id;
     } on Exception {
-      throw DatabaseFailure(
-          message: 'Country ${country.cca3} failed to be inserted');
+      throw CountriesDatabaseException();
     }
   }
 
@@ -72,8 +71,7 @@ class FlagsDatabase {
         await FlagsDatabase.db.insertCountry(country);
       }
     } catch (e) {
-      throw DatabaseFailure(
-          message: 'Failed to insert countries:' + e.toString());
+      throw CountriesDatabaseException();
     }
   }
 
@@ -87,7 +85,7 @@ class FlagsDatabase {
     if (maps.isNotEmpty) {
       return CountryModel.fromJson(maps.first);
     } else {
-      throw DatabaseFailure(message: 'ID $cca3 was not found');
+      throw CountriesDatabaseException();
     }
   }
 
@@ -106,9 +104,7 @@ class FlagsDatabase {
 
       return result.map((json) => CountryModel.fromJson(json)).toList();
     } catch (e) {
-      throw DatabaseFailure(
-          message:
-              'Failed to read countries by region $region:' + e.toString());
+      throw CountriesDatabaseException();
     }
   }
 
@@ -125,8 +121,7 @@ class FlagsDatabase {
 
       return result.map((json) => CountryModel.fromJson(json)).toList();
     } catch (e) {
-      throw DatabaseFailure(
-          message: 'Failed to read countries:' + e.toString());
+      throw CountriesDatabaseException();
     }
   }
 
@@ -138,7 +133,7 @@ class FlagsDatabase {
       int? count = firstIntValue(result);
       return count;
     } catch (e) {
-      throw DatabaseFailure(message: 'Failed to read row count');
+      throw CountriesDatabaseException();
     }
   }
 
@@ -151,8 +146,7 @@ class FlagsDatabase {
       final count = await database.rawDelete('DELETE FROM Country');
       return count;
     } catch (e) {
-      throw DatabaseFailure(
-          message: 'Failed to delete all countries:' + e.toString());
+      throw CountriesDatabaseException();
     }
   }
 

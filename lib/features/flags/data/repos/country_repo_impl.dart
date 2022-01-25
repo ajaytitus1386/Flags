@@ -40,7 +40,7 @@ class CountryRepoImpl implements CountryRepo {
     final int? count;
     try {
       count = await FlagsDatabase.db.readRowCount();
-    } on DatabaseException {
+    } on CountriesDatabaseException {
       return Left(DatabaseFailure(message: "Failed to read row count"));
     }
     if (count == 0) {
@@ -57,7 +57,7 @@ class CountryRepoImpl implements CountryRepo {
       List<CountryModel> countries) async {
     try {
       await FlagsDatabase.db.insertCountries(countries);
-    } on DatabaseException {
+    } on CountriesDatabaseException {
       Left(DatabaseFailure(message: 'Failed to insert countries to DB'));
     }
     return const Right(null);
@@ -74,7 +74,7 @@ class CountryRepoImpl implements CountryRepo {
       try {
         final result = await FlagsDatabase.db.readCountry(border);
         bordersList.add(result);
-      } on DatabaseException {
+      } on CountriesDatabaseException {
         return Left(DatabaseFailure(message: "Failed to read country $border"));
       }
     }
@@ -87,7 +87,7 @@ class CountryRepoImpl implements CountryRepo {
     try {
       final result = await FlagsDatabase.db.readCountriesByRegion(region);
       return Right(result);
-    } on DatabaseException {
+    } on CountriesDatabaseException {
       return Left(DatabaseFailure(
           message: 'Failed to read countries by Region $region'));
     }
@@ -127,7 +127,7 @@ class CountryRepoImpl implements CountryRepo {
       // If Data persists then no insert needed
       return const Right(null);
       // Exceptions during checks and fetch
-    } on DatabaseException {
+    } on CountriesDatabaseException {
       return Left(
           DatabaseFailure(message: 'Database failed to insert countries'));
     } on ServerException {
