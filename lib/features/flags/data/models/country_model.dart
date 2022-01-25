@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flags_task/features/flags/domain/entities/country.dart';
+
 /// Converts the response json string into List of ```CountryModel``` objects
 List<CountryModel> countriesFromJson(String str) {
   return List<CountryModel>.from(json
@@ -13,24 +15,23 @@ String countriesToJson(List<CountryModel> countries) {
       .encode(List<dynamic>.from(countries.map((country) => country.toJson())));
 }
 
-class CountryModel {
-  final String name;
-  final String cca3;
-  final String capital;
-  final List<String> borders;
-  final List<String> languages;
-  final String region;
-  final String flagUrl;
-
-  CountryModel({
-    required this.name,
-    required this.cca3,
-    required this.capital,
-    required this.borders,
-    required this.languages,
-    required this.region,
-    required this.flagUrl,
-  }) : super();
+class CountryModel extends Country {
+  const CountryModel({
+    required String name,
+    required String cca3,
+    required String capital,
+    required List<String> borders,
+    required List<String> languages,
+    required String region,
+    required String flagUrl,
+  }) : super(
+            name: name,
+            cca3: cca3,
+            capital: capital,
+            borders: borders,
+            languages: languages,
+            region: region,
+            flagUrl: flagUrl);
 
   /// Specifically converts json from given API endpoint to ```CountryModel```
   factory CountryModel.fromApiJson(Map<String, dynamic> json) {
