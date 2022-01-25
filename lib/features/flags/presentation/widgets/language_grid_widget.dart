@@ -15,14 +15,13 @@ class LanguageGridWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int count = index + 1;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       decoration: BoxDecoration(
           color: secondary,
           borderRadius: const BorderRadius.all(Radius.circular(10))),
       child: Text(
-        "$count." + widget.languages[index],
+        widget.languages[index],
         style: buildLanguageTextStyle(),
       ),
     );
