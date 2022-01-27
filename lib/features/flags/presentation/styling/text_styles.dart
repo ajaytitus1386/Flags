@@ -40,3 +40,9 @@ TextStyle buildLanguageTextStyle() {
         TextStyle(color: highlight, fontSize: 20, fontWeight: FontWeight.w600),
   );
 }
+
+TextStyle buildErrorCardStyle() {
+  return GoogleFonts.notoSans(
+      textStyle: TextStyle(
+          color: highlight, fontSize: 18.0, fontWeight: FontWeight.w600));
+}
