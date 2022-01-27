@@ -7,17 +7,14 @@ void dispatchPopulate(BuildContext context) {
 }
 
 void dispatchGetCountriesByBorders(BuildContext context, List<String> borders) {
-  print("By borders");
   BlocProvider.of<CountryBloc>(context)
       .add(GetCountriesByBordersEvent(borders));
 }
 
 void dispatchGetCountries(BuildContext context, String region) {
-  print("By region");
   BlocProvider.of<CountryBloc>(context).add(GetCountriesByRegionEvent(region));
 }
 
 void dispatchRefresh(BuildContext context) {
-  print("Does refresh");
   BlocProvider.of<CountryBloc>(context).add(CountryRefresh());
 }
