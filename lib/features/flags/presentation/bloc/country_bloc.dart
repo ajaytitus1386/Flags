@@ -11,8 +11,8 @@ import 'package:flags_task/features/flags/domain/usecases/populate_countries_db.
 part 'country_event.dart';
 part 'country_state.dart';
 
-const String SERVER_FAILURE_MESSAGE = 'Server Failure';
-const String DATABASE_FAILURE_MESSAGE = 'Database Failure';
+const String serverFailureMessage = 'Server Failure';
+const String databaseFailureMessage = 'Database Failure';
 
 class CountryBloc extends Bloc<CountryEvent, CountryState> {
   final PopulateCountriesDB populateCountriesDB;
@@ -65,9 +65,9 @@ class CountryBloc extends Bloc<CountryEvent, CountryState> {
   String _mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
       case ServerFailure:
-        return SERVER_FAILURE_MESSAGE;
+        return serverFailureMessage;
       case DatabaseFailure:
-        return DATABASE_FAILURE_MESSAGE;
+        return databaseFailureMessage;
       default:
         return 'Unexpected Error';
     }
