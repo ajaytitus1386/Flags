@@ -9,13 +9,14 @@
 A Flags Task made for Nearcast
 
 - [Flags Task](#flags-task)
-  - [Getting Started](#getting-started)
-  - [Architecture](#architecture)
-    - [Data Layer](#data-layer)
-    - [Presentation Layer](#presentation-layer)
-  - [The User Interface Flow](#the-user-interface-flow)
+  - [:rocket: Getting Started](#rocket-getting-started)
+  - [:ledger: Architecture](#ledger-architecture)
+    - [:file_folder: Data Layer](#file_folder-data-layer)
+    - [:briefcase: Domain Layer](#briefcase-domain-layer)
+    - [:iphone: Presentation Layer](#iphone-presentation-layer)
+  - [:o: The User Interface Flow](#o-the-user-interface-flow)
 
-## Getting Started
+## :rocket: Getting Started
 
 1.  Install Flutter by following the official instruction at [https://flutter.dev/docs/get-started/install](https://flutter.dev/docs/get-started/install)
     &nbsp;
@@ -35,28 +36,34 @@ A Flags Task made for Nearcast
     flutter run
     ```
 
-## Architecture
+## :ledger: Architecture
 
-The project follows a simple two-tier architecture consisting of Data and Presentation layers
+The project follows a simple three-tier architecture consisting of Data, Domain and Presentation layers
 
-### Data Layer
+### :file_folder: Data Layer
 
 This layer handles both remote data calls and storage with local data sources.
 
-- **db** : Helper class and methods for database
+- **db** : Helper class and methods for database functions
 - **models** : Models of Data Objects and conversion logic to and from JSON
-- **providers** : Holds the API handler class to fetch data
-- **services** : Other business logic
+- **repo** : Contains the implementation of the repositories contracts in the domain layer.
 
-### Presentation Layer
+### :briefcase: Domain Layer
+
+- **entities** : The abstract class of the main data objects used in the business logic
+- **repos** : Repository contracts of the intended methods to be implemented
+- **usecases** : Intermediaries class where the business logic in the repos is executed.
+
+### :iphone: Presentation Layer
 
 Focuses on Flutter layout and the Widget Tree. Anything and everything to do with the UI is structured here
 
+- **animation** : contains page animations
 - **pages** : The individual views of the UI
 - **widgets** : Reusuable and Extractable widget components
 - **styling** : Constants for Colors, TextStyles, Sizes and so on
 
-## The User Interface Flow
+## :o: The User Interface Flow
 
 The current build flows between two main pages: The Home Page and the Region Page
 
@@ -64,4 +71,4 @@ The current build flows between two main pages: The Home Page and the Region Pag
 
 **The Region Page**: Using the stored data, displays a list of countries based on a region as vertical tiles.
 
-**The Country Page**: Tapping on a country tile, displays its bordering countries and the language spoken in the country
+**The Country Page**: Tapping on a country tile, displays its bordering countries and the languages spoken in the country
