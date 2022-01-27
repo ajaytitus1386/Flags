@@ -27,11 +27,10 @@ class CountryRepoImpl implements CountryRepo {
         final result = countriesFromJson(response.body);
         return Right(result);
       }
-      throw {
-        Left(ServerFailure(message: 'HTTP Fetch failed')),
-      };
+
+      return Left(ServerFailure(message: 'HTTP Fetch failed'));
     } else {
-      throw Left(ServerFailure(message: 'Internet Connection Not Detected'));
+      return Left(ServerFailure(message: 'Internet Connection Not Detected'));
     }
   }
 
@@ -58,7 +57,7 @@ class CountryRepoImpl implements CountryRepo {
     try {
       await FlagsDatabase.db.insertCountries(countries);
     } on CountriesDatabaseException {
-      Left(DatabaseFailure(message: 'Failed to insert countries to DB'));
+      return Left(DatabaseFailure(message: 'Failed to insert countries to DB'));
     }
     return const Right(null);
   }
