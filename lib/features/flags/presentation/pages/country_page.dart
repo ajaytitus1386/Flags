@@ -9,6 +9,8 @@ import 'package:flags_task/features/flags/presentation/widgets/scaffold_wrapper.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../injection_container.dart';
+
 class CountryPage extends StatefulWidget {
   final Country country;
   const CountryPage({Key? key, required this.country}) : super(key: key);
@@ -28,35 +30,46 @@ class _CountryPageState extends State<CountryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ScaffoldWrapper(
-        child: BlocBuilder<CountryBloc, CountryState>(
-          builder: (context, state) {
-            if (state is CountryInitial) {
-              return Center(
-                child: CircularProgressIndicator(
-                  color: primary,
-                ),
-              );
-            } else if (state is CountryLoaded) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  const HeadingCard(heading: 'Languages Spoken'),
-                  LanguageListBuilder(languages: widget.country.languages),
-                  _buildBorderingHeading(state.countries),
-                  _buildBorderingCountriesList(state.countries),
-                ],
-              );
-            }
-            return const HeadingCard(
-                heading: 'Oops something went wrong! Try again later');
-          },
-        ),
-        appBarTitle: widget.country.name);
+    return WillPopScope(
+      onWillPop: () {
+        dispatchRefresh(context);
+        return Future.value(true);
+      },
+      child: BlocProvider(
+        create: (context) => sl<CountryBloc>(),
+        child: ScaffoldWrapper(
+            child: BlocBuilder<CountryBloc, CountryState>(
+              builder: (context, state) {
+                if (state is CountryInitial) {
+                  dispatchGetCountriesByBorders(
+                      context, widget.country.borders);
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: primary,
+                    ),
+                  );
+                } else if (state is CountryLoaded) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      const HeadingCard(heading: 'Languages Spoken'),
+                      LanguageListBuilder(languages: widget.country.languages),
+                      _buildBorderingHeading(state.countries),
+                      _buildBorderingCountriesList(state.countries),
+                    ],
+                  );
+                }
+                return const HeadingCard(
+                    heading: 'Oops something went wrong! Try again later');
+              },
+            ),
+            appBarTitle: widget.country.name),
+      ),
+    );
   }
 }
 

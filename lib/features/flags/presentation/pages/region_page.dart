@@ -31,6 +31,7 @@ class _RegionPageState extends State<RegionPage> {
         child: BlocBuilder<CountryBloc, CountryState>(
           builder: (context, state) {
             if (state is CountryInitial) {
+              dispatchGetCountries(context, widget.region);
               return Center(
                 child: CircularProgressIndicator(
                   color: primary,
