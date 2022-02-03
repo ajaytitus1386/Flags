@@ -4,7 +4,6 @@ import 'package:flags_task/features/flags/presentation/global/event_dispatchers.
 import 'package:flags_task/features/flags/presentation/styling/color_palettes.dart';
 import 'package:flags_task/features/flags/presentation/widgets/country_list_builder.dart';
 import 'package:flags_task/features/flags/presentation/widgets/error_card_widget.dart';
-import 'package:flags_task/features/flags/presentation/widgets/heading_card.dart';
 import 'package:flags_task/features/flags/presentation/widgets/scaffold_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
