@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flags_task/core/error/exceptions.dart';
 import 'package:flags_task/features/flags/data/models/country_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -60,13 +61,17 @@ class FlagsDatabase {
           .rawInsert('INSERT INTO Country ($columns) VALUES ($values)');
       return id;
     } on Exception {
-      throw Exception('Insert Failed');
+      throw CountriesDatabaseException();
     }
   }
 
   Future<void> insertCountries(List<CountryModel> result) async {
-    for (var country in result) {
-      await FlagsDatabase.db.insertCountry(country);
+    try {
+      for (var country in result) {
+        await FlagsDatabase.db.insertCountry(country);
+      }
+    } catch (e) {
+      throw CountriesDatabaseException();
     }
   }
 
@@ -80,7 +85,7 @@ class FlagsDatabase {
     if (maps.isNotEmpty) {
       return CountryModel.fromJson(maps.first);
     } else {
-      throw Exception('ID $cca3 was not found');
+      throw CountriesDatabaseException();
     }
   }
 
@@ -89,14 +94,18 @@ class FlagsDatabase {
     final database = await db.database;
     const orderBy = 'name ASC';
 
-    final result = await database.query(
-      'Country',
-      where: 'region = ?',
-      whereArgs: [region],
-      orderBy: orderBy,
-    );
+    try {
+      final result = await database.query(
+        'Country',
+        where: 'region = ?',
+        whereArgs: [region],
+        orderBy: orderBy,
+      );
 
-    return result.map((json) => CountryModel.fromJson(json)).toList();
+      return result.map((json) => CountryModel.fromJson(json)).toList();
+    } catch (e) {
+      throw CountriesDatabaseException();
+    }
   }
 
   /// Returns a `List<CountryModel>` of all countries in database
@@ -104,20 +113,28 @@ class FlagsDatabase {
     final database = await db.database;
     const orderBy = 'name ASC';
 
-    final result = await database.query(
-      'Country',
-      orderBy: orderBy,
-    );
+    try {
+      final result = await database.query(
+        'Country',
+        orderBy: orderBy,
+      );
 
-    return result.map((json) => CountryModel.fromJson(json)).toList();
+      return result.map((json) => CountryModel.fromJson(json)).toList();
+    } catch (e) {
+      throw CountriesDatabaseException();
+    }
   }
 
   /// Returns `count` of rows in Country table
   Future<int?> readRowCount() async {
     final database = await db.database;
-    final result = await database.rawQuery('SELECT COUNT(*) FROM Country');
-    int? count = firstIntValue(result);
-    return count;
+    try {
+      final result = await database.rawQuery('SELECT COUNT(*) FROM Country');
+      int? count = firstIntValue(result);
+      return count;
+    } catch (e) {
+      throw CountriesDatabaseException();
+    }
   }
 
   /// Deletes all records in Country Table
@@ -125,8 +142,12 @@ class FlagsDatabase {
   /// Returns `count` of deleted rows
   Future<int?> deleteAllCountries() async {
     final database = await db.database;
-    final count = await database.rawDelete('DELETE FROM Country');
-    return count;
+    try {
+      final count = await database.rawDelete('DELETE FROM Country');
+      return count;
+    } catch (e) {
+      throw CountriesDatabaseException();
+    }
   }
 
   /// Closes Database connection

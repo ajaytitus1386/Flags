@@ -1,9 +1,9 @@
-import 'package:flags_task/features/flags/data/models/country_model.dart';
+import 'package:flags_task/features/flags/domain/entities/country.dart';
 import 'package:flags_task/features/flags/presentation/widgets/country_tile_widget.dart';
 import 'package:flutter/material.dart';
 
 class CountryListBuilder extends StatefulWidget {
-  final List<CountryModel> countries;
+  final List<Country> countries;
   const CountryListBuilder({Key? key, required this.countries})
       : super(key: key);
 
