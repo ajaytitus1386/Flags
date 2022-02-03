@@ -15,7 +15,7 @@ TextStyle buildHeadingCardTextStyle() {
   return GoogleFonts.montserrat(
       textStyle: TextStyle(
     color: highlight,
-    fontSize: 32,
+    fontSize: 28,
     fontWeight: FontWeight.bold,
   ));
 }

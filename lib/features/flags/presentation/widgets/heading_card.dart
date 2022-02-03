@@ -12,7 +12,7 @@ class HeadingCard extends StatelessWidget {
     SizeConfig().init(context);
     return Container(
       decoration: cardDecoration,
-      width: SizeConfig.cardWidth + 100,
+      width: SizeConfig.cardWidth + 80,
       height: SizeConfig.cardHeight,
       child: Card(
         color: primary,
