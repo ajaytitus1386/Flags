@@ -6,6 +6,7 @@ class SizeConfig {
   static late double screenHeight;
   static late double cardWidth;
   static late double cardHeight;
+  static late double sidebarWidth;
 
   void init(BuildContext context) {
     _mediaQueryData = MediaQuery.of(context);
@@ -13,5 +14,6 @@ class SizeConfig {
     screenHeight = _mediaQueryData.size.height;
     cardWidth = screenWidth / 1.5;
     cardHeight = screenHeight / 12;
+    sidebarWidth = screenWidth * 0.65;
   }
 }
