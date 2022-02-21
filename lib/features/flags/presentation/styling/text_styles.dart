@@ -7,7 +7,7 @@ TextStyle buildRegionCardTextStyle() {
       textStyle: TextStyle(
     color: highlight,
     fontSize: 36,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w600,
   ));
 }
 
@@ -18,6 +18,23 @@ TextStyle buildHeadingCardTextStyle() {
     fontSize: 28,
     fontWeight: FontWeight.bold,
   ));
+}
+
+TextStyle buildHeadingTextStyle() {
+  return GoogleFonts.raleway(
+      textStyle: TextStyle(
+    color: textHeadingColor,
+    fontSize: 32,
+    fontWeight: FontWeight.w600,
+  ));
+}
+
+TextStyle buildHeadingSubTextStyle() {
+  return GoogleFonts.raleway(
+      textStyle: TextStyle(
+          color: textHeadingColor,
+          fontSize: 14,
+          fontWeight: FontWeight.normal));
 }
 
 TextStyle buildTileHeadingTextStyle() {
