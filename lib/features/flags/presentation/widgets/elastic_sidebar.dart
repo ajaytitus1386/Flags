@@ -22,7 +22,7 @@ class _ElasticSidebarState extends State<ElasticSidebar> {
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 1500),
       // + 20 is the visible hang that will be used to pull the sidebar
-      left: widget.isMenuOpen ? 0 : -SizeConfig.sidebarWidth + 20,
+      left: widget.isMenuOpen ? 0 : -SizeConfig.sidebarWidth,
       top: 0,
       curve: Curves.elasticOut,
       child: SizedBox(
@@ -34,18 +34,6 @@ class _ElasticSidebarState extends State<ElasticSidebar> {
               setState(() {
                 //Gives location of users finger on touch
                 offset = details.localPosition;
-              });
-            }
-            if (details.localPosition.dx > SizeConfig.sidebarWidth - 20 &&
-                details.delta.distanceSquared > 2) {
-              setState(() {
-                widget.isMenuOpen = true;
-              });
-            }
-            if (details.localPosition.dx < SizeConfig.screenWidth / 2 &&
-                details.delta.distanceSquared > 2) {
-              setState(() {
-                widget.isMenuOpen = false;
               });
             }
           },
@@ -80,7 +68,7 @@ class _ElasticSidebarState extends State<ElasticSidebar> {
                       height: 16,
                     ),
                     Divider(
-                      height: 2,
+                      height: 8,
                       color: highlight,
                     ),
                     const SizedBox(
@@ -99,20 +87,6 @@ class _ElasticSidebarState extends State<ElasticSidebar> {
                   ],
                 ),
               ),
-              // AnimatedPositioned(
-              //     right: widget.isMenuOpen ? 10 : SizeConfig.sidebarWidth,
-              //     child: IconButton(
-              //         onPressed: () {
-              //           setState(() {
-              //             widget.isMenuOpen = false;
-              //           });
-              //         },
-              //         icon: Icon(
-              //           Icons.close,
-              //           color: highlight,
-              //           size: 30,
-              //         )),
-              //     duration: const Duration(milliseconds: 300))
             ],
           ),
         ),
@@ -155,7 +129,6 @@ class DrawerPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    // TODO: implement shouldRepaint
     return true;
   }
 }

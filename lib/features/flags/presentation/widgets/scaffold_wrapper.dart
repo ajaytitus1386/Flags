@@ -18,11 +18,13 @@ class ScaffoldWrapper extends StatefulWidget {
 
 class _ScaffoldWrapperState extends State<ScaffoldWrapper> {
   bool isMenuOpen = false;
+  Offset offset = const Offset(0, 0);
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+      backgroundColor: background,
       appBar: AppBar(
         leading: buildDrawerHamburger(),
         centerTitle: true,
@@ -34,13 +36,52 @@ class _ScaffoldWrapperState extends State<ScaffoldWrapper> {
       ),
       body: SizedBox(
         height: SizeConfig.screenHeight,
-        child: Stack(
-          children: [
-            widget.child,
-            ElasticSidebar(
-              isMenuOpen: isMenuOpen,
-            ),
-          ],
+        child: GestureDetector(
+          onPanUpdate: (details) {
+            // Only if gesture is within sidebar bounds
+            if (details.localPosition.dx <= SizeConfig.sidebarWidth) {
+              setState(() {
+                //Gives location of users finger on touch
+                offset = details.localPosition;
+              });
+            }
+            if (details.localPosition.dx > SizeConfig.screenWidth / 2 &&
+                details.delta.distanceSquared > 2) {
+              setState(() {
+                isMenuOpen = true;
+              });
+            }
+            if (details.localPosition.dx < SizeConfig.screenWidth / 2 &&
+                details.delta.distanceSquared > 2) {
+              setState(() {
+                isMenuOpen = false;
+              });
+            }
+          },
+          onPanEnd: (details) {
+            setState(() {
+              // Reset to zero when user lifts finger
+              offset = const Offset(0, 0);
+            });
+          },
+          child: Stack(
+            children: [
+              widget.child,
+              Visibility(
+                  visible: isMenuOpen,
+                  child: Opacity(
+                    opacity: 0.25,
+                    child: Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      color: gray50,
+                    ),
+                  )),
+              ElasticSidebar(
+                isMenuOpen: isMenuOpen,
+              ),
+            ],
+          ),
         ),
       ),
     );
