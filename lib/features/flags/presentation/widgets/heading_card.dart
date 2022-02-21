@@ -11,18 +11,28 @@ class HeadingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Container(
-      decoration: cardDecoration,
-      width: SizeConfig.cardWidth + 80,
+      decoration: buildHeadingDecoration(primary),
+      margin: const EdgeInsets.symmetric(horizontal: 35),
+      width: double.infinity,
       height: SizeConfig.cardHeight,
-      child: Card(
-        color: primary,
-        child: Center(
-          child: Text(
-            heading,
-            style: buildHeadingCardTextStyle(),
-          ),
+      child: Center(
+        child: Text(
+          heading,
+          style: buildHeadingCardTextStyle(),
         ),
       ),
     );
   }
+}
+
+BoxDecoration buildHeadingDecoration(Color bgColor) {
+  return BoxDecoration(
+      color: bgColor,
+      borderRadius: BorderRadius.circular(20),
+      boxShadow: const [
+        BoxShadow(
+          color: Color.fromRGBO(0, 0, 0, 0.05),
+          blurRadius: 15,
+        )
+      ]);
 }
