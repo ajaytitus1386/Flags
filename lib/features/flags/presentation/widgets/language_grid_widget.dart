@@ -15,14 +15,17 @@ class LanguageGridWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-      decoration: BoxDecoration(
-          color: secondary,
-          borderRadius: const BorderRadius.all(Radius.circular(10))),
-      child: Text(
-        widget.languages[index],
-        style: buildLanguageTextStyle(),
+    return FittedBox(
+      fit: BoxFit.fill,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+        decoration: BoxDecoration(
+            color: secondary,
+            borderRadius: const BorderRadius.all(Radius.circular(10))),
+        child: Text(
+          widget.languages[index],
+          style: buildLanguageTextStyle(),
+        ),
       ),
     );
   }
