@@ -12,8 +12,8 @@ class SizeConfig {
     _mediaQueryData = MediaQuery.of(context);
     screenWidth = _mediaQueryData.size.width;
     screenHeight = _mediaQueryData.size.height;
-    cardWidth = screenWidth / 1.5;
-    cardHeight = screenHeight / 12;
+    cardWidth = screenWidth * 0.75;
+    cardHeight = screenHeight * 0.10;
     sidebarWidth = screenWidth * 0.65;
   }
 }
