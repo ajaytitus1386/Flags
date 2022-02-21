@@ -59,9 +59,6 @@ class _CountryTileState extends State<CountryTile> {
 BoxDecoration _makeTileDecoration(bool isAlternate) {
   BoxDecoration tileDecoration = BoxDecoration(
     color: isAlternate ? Colors.grey.shade200 : Colors.grey.shade100,
-    border: const Border(
-      bottom: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.25), width: 0.75),
-    ),
   );
   return tileDecoration;
 }
