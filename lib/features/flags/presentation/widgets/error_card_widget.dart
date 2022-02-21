@@ -19,7 +19,10 @@ class _ErrorCardWidgetState extends State<ErrorCardWidget> {
       child: Container(
         decoration: cardDecoration,
         width: SizeConfig.cardWidth,
+        height: SizeConfig.cardHeight,
         child: Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           color: warning,
           child: Center(
               child: Padding(
