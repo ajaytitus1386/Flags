@@ -2,9 +2,9 @@ import 'package:flags_task/features/flags/domain/entities/country.dart';
 import 'package:flags_task/features/flags/presentation/bloc/country_bloc.dart';
 import 'package:flags_task/features/flags/presentation/global/event_dispatchers.dart';
 import 'package:flags_task/features/flags/presentation/styling/color_palettes.dart';
+import 'package:flags_task/features/flags/presentation/styling/text_styles.dart';
 import 'package:flags_task/features/flags/presentation/widgets/country_list_builder.dart';
 import 'package:flags_task/features/flags/presentation/widgets/error_card_widget.dart';
-import 'package:flags_task/features/flags/presentation/widgets/heading_card.dart';
 import 'package:flags_task/features/flags/presentation/widgets/languages_list_builder.dart';
 import 'package:flags_task/features/flags/presentation/widgets/scaffold_wrapper.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +22,7 @@ class CountryPage extends StatefulWidget {
 
 class _CountryPageState extends State<CountryPage> {
   List<Country> countries = [];
+  final double _horizontalPadding = 16;
 
   @override
   void initState() {
@@ -55,11 +56,29 @@ class _CountryPageState extends State<CountryPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const SizedBox(
-                        height: 40,
+                        height: 30,
                       ),
-                      const HeadingCard(heading: 'Languages Spoken'),
-                      LanguageListBuilder(languages: widget.country.languages),
-                      _buildBorderingHeading(state.countries),
+                      CircleAvatar(
+                        radius: 40,
+                        backgroundImage: NetworkImage(widget.country.flagUrl),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: _horizontalPadding),
+                        child: _buildHeading(heading: "Languages Spoken"),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: _horizontalPadding),
+                        child: LanguageListBuilder(
+                            languages: widget.country.languages),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: _horizontalPadding),
+                        child: _buildBorderingHeading(state.countries),
+                      ),
+                      //No Horizontal padding of this country list
                       _buildBorderingCountriesList(state.countries),
                     ],
                   );
@@ -77,7 +96,7 @@ class _CountryPageState extends State<CountryPage> {
 
 Widget _buildBorderingHeading(List<Country> countries) {
   if (countries.isNotEmpty) {
-    return const HeadingCard(heading: 'Bordering Countries');
+    return _buildHeading(heading: 'Bordering Countries');
   } else {
     return const SizedBox.shrink();
   }
@@ -89,4 +108,11 @@ Widget _buildBorderingCountriesList(List<Country> countries) {
   } else {
     return const SizedBox.shrink();
   }
+}
+
+Widget _buildHeading({required String heading}) {
+  return Text(
+    heading,
+    style: buildHeadingTextStyle(),
+  );
 }
